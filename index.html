@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Electronics Calculators</title>
+  <link rel="stylesheet" href="styles/w3.css" />
+  <link rel="stylesheet" href="styles/w3-theme-lilytronics.css" />
+  <link rel="stylesheet" href="styles/app.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1 id="appTitle">Electronics Calculators</h1>
+    <button id="backBtn" class="hidden">⬅ Terug</button>
+  </header>
+
+  <!-- HOME: tiles -->
+  <main id="homeView">
+    <div id="tileGrid" class="grid"></div>
+  </main>
+
+  <!-- CALCULATOR: dynamic content -->
+  <main id="calcView" class="hidden">
+    <div id="calcContainer"></div>
+  </main>
+
+  <script type="module" src="app/app.js"></script>
+</body>
+</html>
