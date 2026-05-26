@@ -20,20 +20,14 @@ img.app-logo
 .app-tile
 {
   padding: 8px;
-  width: 260px;
-  height: 200px;
+  width: 200px;
+  height: 100px;
   cursor: pointer;
 }
 
 .app-tile:hover
 {
   transform: translateY(-2px);
-}
-
-.app-tile-image
-{
-  height: 100px;
-  margin: 8px;
 }
 
 /* Old stuff that will be replaced */

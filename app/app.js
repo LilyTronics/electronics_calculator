@@ -24,7 +24,6 @@ async function renderTiles()
     tile.classList.add("w3-round");
     tile.classList.add("app-tile");
     tile.innerHTML = `
-      <div class="w3-center"><img class="app-tile-image" src="./calculators/${entry.module}.png" /></div>
       <div class="w3-center w3-bold">${meta.name}</div>
       <div class="w3-center w3-small">${meta.desc ?? ""}</div>
     `;
