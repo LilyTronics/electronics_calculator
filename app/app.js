@@ -1,19 +1,22 @@
-// app.js
-import { setRoute, getRoute, onRouteChange } from "./router.js";
+/* Main application functions */
 
-// 1) Lijst van calculators (1 regel toevoegen = nieuwe tile)
-const registry = [
-  { path: "../calculators/pcb-trace-width.js" }
-];
+import { setRoute, getRoute, onRouteChange } from "./router.js";
+import { calculators } from "../calculators/calculators.js";
+
+// // 1) Lijst van calculators (1 regel toevoegen = nieuwe tile)
+// const registry = [
+//   { path: "../calculators/pcb-trace-width.js" }
+// ];
 
 // 2) Cache: modules maar 1x laden
 const moduleCache = new Map();
 
-async function loadCalcModule(path) {
-  if (!moduleCache.has(path)) {
-    moduleCache.set(path, import(path));
+async function loadCalcModule(module) {
+  if (!moduleCache.has(module)) {
+    var path = "../calculators/" + module;
+    moduleCache.set(module, import(path));
   }
-  return moduleCache.get(path);
+  return moduleCache.get(module);
 }
 
 // 3) UI refs
@@ -28,8 +31,8 @@ const appTitle = document.getElementById("appTitle");
 async function renderTiles() {
   tileGrid.innerHTML = "";
 
-  for (const entry of registry) {
-    const mod = await loadCalcModule(entry.path);
+  for (const entry of calculators) {
+    const mod = await loadCalcModule(entry.module);
     const meta = mod.meta;
 
     const tile = document.createElement("button");
@@ -60,8 +63,8 @@ async function renderRoute() {
   }
 
   // find module by id
-  for (const entry of registry) {
-    const mod = await loadCalcModule(entry.path);
+  for (const entry of calculators) {
+    const mod = await loadCalcModule(entry.module);
     if (mod.meta?.id === id) {
       // show calculator
       homeView.classList.add("hidden");
