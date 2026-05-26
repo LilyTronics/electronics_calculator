@@ -2,5 +2,6 @@
 
 export const calculators =
 [
-  { module: "pcb-trace-width.js" }
+  { module: "pcb-trace-width" },
+  { module: "az1117" }
 ];

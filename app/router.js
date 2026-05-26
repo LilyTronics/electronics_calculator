@@ -1,15 +1,18 @@
 /* Router functions */
 
-export function getRoute() {
+export function getRoute()
+{
   // "#route-name" -> "route-name"
   return location.hash.replace(/^#/, "");
 }
 
-export function setRoute(id) {
+export function setRoute(id)
+{
   // set "#"
   location.hash = id ? `#${id}` : "";
 }
 
-export function onRouteChange(cb) {
+export function onRouteChange(cb)
+{
   window.addEventListener("hashchange", cb);
 }

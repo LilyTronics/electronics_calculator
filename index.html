@@ -18,18 +18,15 @@
 
   <main class="w3-container w3-content app-main">
 
-    <div>
-      <h3 id="appTitle"></h3>
-      <button id="backBtn" class="hidden">⬅ Terug</button>
-    </div>
-
-    <!-- HOME: tiles -->
-    <main id="homeView">
-      <div id="tileGrid" class="grid"></div>
-    </main>
+    <!-- Tiles for the home screen -->
+    <div id="homeView" class="w3-flex w3-padding app-tiles-flex"></div>
 
     <!-- CALCULATOR: dynamic content -->
     <main id="calcView" class="hidden">
+      <div>
+        <h3 id="appTitle"></h3>
+        <button id="backBtn" class="hidden">⬅ Terug</button>
+      </div>
       <div id="calcContainer"></div>
     </main>
 

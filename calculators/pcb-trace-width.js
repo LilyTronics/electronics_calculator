@@ -1,12 +1,11 @@
-export const meta = {
-  id: "pcb-trace-width",
-  name: "PCB Trace Width",
-  desc: "IPC-2221: tracebreedte o.b.v. stroom & ΔT",
-  category: "PCB",
-  icon: "⚡",
+export const meta =
+{
+  name: "PCB trace width",
+  desc: "IPC-2221: trace width for a given current"
 };
 
-export function render(container) {
+export function render(container)
+{
   container.innerHTML = `
     <h2>${meta.icon} ${meta.name}</h2>
     <p>${meta.desc}</p>
@@ -51,8 +50,10 @@ export function render(container) {
   `;
 
   const btn = container.querySelector("#calcBtn");
-  btn.addEventListener("click", () => {
-    const input = {
+  btn.addEventListener("click", () =>
+  {
+    const input =
+    {
       current: parseFloat(container.querySelector("#current").value),
       tempRise: parseFloat(container.querySelector("#tempRise").value),
       thicknessOz: parseFloat(container.querySelector("#thickness").value),
@@ -68,7 +69,8 @@ export function render(container) {
   btn.click();
 }
 
-export function compute({ current, tempRise, thicknessOz, layer, lengthMm }) {
+export function compute({ current, tempRise, thicknessOz, layer, lengthMm })
+{
   // IPC-2221 constants
   const k = layer === "external" ? 0.048 : 0.024;
   const b = 0.44;
@@ -86,7 +88,8 @@ export function compute({ current, tempRise, thicknessOz, layer, lengthMm }) {
 
   // optional resistance if length provided (very rough DC estimate)
   let resistance_ohm = null, vdrop_v = null, ploss_w = null;
-  if (lengthMm) {
+  if (lengthMm)
+  {
     const rho = 1.72e-8; // copper resistivity Ω·m
     const width_m = width_mm / 1000;
     const thick_m = (thickness_mil * 0.0254) / 1000;
@@ -108,7 +111,8 @@ export function compute({ current, tempRise, thicknessOz, layer, lengthMm }) {
   };
 }
 
-function renderResult(container, input, r) {
+function renderResult(container, input, r)
+{
   const out = container.querySelector("#out");
   out.innerHTML = `
     <div class="kpi">
@@ -130,7 +134,8 @@ function renderResult(container, input, r) {
 
   const steps = 12;
   const maxI = Math.max(0.5, input.current * 2);
-  for (let i = 0; i <= steps; i++) {
+  for (let i = 0; i <= steps; i++)
+  {
     const I = (maxI * i) / steps || 0.1;
     const rr = compute({ ...input, current: I });
     tbl.innerHTML += `<tr><td>${I.toFixed(2)}</td><td>${rr.width_mm.toFixed(3)}</td></tr>`;
