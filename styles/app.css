@@ -1,8 +1,12 @@
-body { font-family: Arial, sans-serif; margin: 0; padding: 16px; max-width: 1100px; margin-inline: auto; }
-.hidden { display: none; }
+/* App specific styles */
 
-.topbar { display: flex; align-items: center; gap: 12px; }
-.topbar h1 { flex: 1; margin: 8px 0 16px; font-size: 20px; }
+img.app-logo { width: 150px; }
+
+
+
+/* Old stuff that will be replaced */
+
+.hidden { display: none; }
 
 .grid {
   display: grid;

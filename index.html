@@ -9,20 +9,37 @@
   <link rel="stylesheet" href="styles/app.css" />
 </head>
 <body>
-  <header class="topbar">
-    <h1 id="appTitle">Electronics Calculators</h1>
-    <button id="backBtn" class="hidden">⬅ Terug</button>
+  <header class="w3-container w3-theme">
+    <div class="w3-content w3-padding">
+      <img class="w3-left w3-margin-right app-logo" src="images/logo-lilytronics.svg" />
+      <h2 class="w3-left w3">Electronics calculators</h2>
+    </div>
   </header>
 
-  <!-- HOME: tiles -->
-  <main id="homeView">
-    <div id="tileGrid" class="grid"></div>
+  <main class="w3-container w3-content">
+
+    <div>
+      <h3 id="appTitle"></h3>
+      <button id="backBtn" class="hidden">⬅ Terug</button>
+    </div>
+
+    <!-- HOME: tiles -->
+    <main id="homeView">
+      <div id="tileGrid" class="grid"></div>
+    </main>
+
+    <!-- CALCULATOR: dynamic content -->
+    <main id="calcView" class="hidden">
+      <div id="calcContainer"></div>
+    </main>
+
   </main>
 
-  <!-- CALCULATOR: dynamic content -->
-  <main id="calcView" class="hidden">
-    <div id="calcContainer"></div>
-  </main>
+  <footer>
+    <p class="w3-center w3-small">&copy; copyright
+      <a class="w3-link-theme" href="https://lilytronics.nl">LilyTronics</a>
+    </p>
+  </footer>
 
   <script type="module" src="app/app.js"></script>
 </body>
