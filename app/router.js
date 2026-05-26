@@ -1,6 +1,7 @@
-// router.js
+/* Router functions */
+
 export function getRoute() {
-  // "#pcb-trace-width" -> "pcb-trace-width"
+  // "#route-name" -> "route-name"
   return location.hash.replace(/^#/, "");
 }
 

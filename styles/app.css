@@ -1,7 +1,7 @@
 /* App specific styles */
 
 img.app-logo { width: 150px; }
-
+.app-main { min-height: 600px; }
 
 
 /* Old stuff that will be replaced */
