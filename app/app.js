@@ -1,19 +1,15 @@
 /* Main application functions */
 
+import { debugLog } from "./logger.js";
 import { setRoute, getRoute, onRouteChange } from "./router.js";
 import { moduleCache, loadModule } from "./module-cache.js";
 import { calculators } from "../calculators/calculators.js";
-
-const DEBUG = true;
 
 const homeView = document.getElementById("homeView");
 const calculatorView = document.getElementById("calculatorView");
 const calculatorTitle = document.getElementById("calculatorTitle");
 const backButton = document.getElementById("backButton");
 const calculatorContainer = document.getElementById("calculatorContainer");
-
-// Debug log function if debug is enabled
-const debugLog = DEBUG ? (...args) => console.log(new Date().toISOString(), ...args) : () => {};
 
 
 // Render the tiles for the home screen
@@ -63,10 +59,13 @@ async function renderRoute()
       calculatorView.classList.remove("w3-hide");
 
       // Render calculator UI
-      try {
+      try
+      {
         mod.render(calculatorContainer);
         return;
-      } catch (error) {
+      }
+      catch (error)
+      {
         debugLog("Error rendering view:", error)
       }
     }
