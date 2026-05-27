@@ -22,10 +22,13 @@ const DELAY = 300;  // delay in ms
 
 export function debounce(callback) {
     let timeoutId;
-    return function (...args) {
+    return function (...args)
+    {
         clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
+        timeoutId = setTimeout(() =>
+        {
             callback.apply(this, args);
-        }, DELAY);
+        },
+        DELAY);
     };
 }

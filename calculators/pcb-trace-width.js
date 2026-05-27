@@ -1,59 +1,59 @@
 export const meta =
 {
-  name: "PCB trace width",
-  description: "IPC-2221: trace width for a given current"
+    name: "PCB trace width",
+    description: "IPC-2221: trace width for a given current"
 };
 
 export function render(container)
 {
-  container.innerHTML = `
-    <section>
-      <table>
-        <tr>
-          <td>Temperature rise:</td>
-          <td><input id="tempRise" type="text"></td>
-          <td>°C</td>
-        </tr>
-        <tr>
-          <td>Copper thickness:</td>
-          <td><input id="copperThickness" type="text"></td>
-          <td><select id="thickness">
-            <option value="oz">oz</option>
-            <option value="mil">mil</option>
-            <option value="mm">mm</option>
-          </select></td>
-        </tr>
-        <tr>
-          <td>Layer:</td>
-          <td><select id="layer">
-            <option value="external">external</option>
-            <option value="internal">internal</option>
-          </select></td>
-        </tr>
-        <tr>
-          <td>Mode:</td>
-          <td><input type="radio" name="mode" /> calculate minimum trace width<br/>
-              <input type="radio" name="mode" /> calculate maximum current</td>
-        </tr>
-        <tr>
-          <td>Current:</td>
-          <td><input id="current" type="text"></td>
-          <td>A</td>
-        </tr>
-        <tr>
-          <td>Trace width:</td>
-          <td><input id="width" type="text"></td>
-          <td><select id="unit">
-            <option value="mm">mm</option>
-            <option value="mil">mil</option>
-          </select></td>
-        </tr>
-      </table>
-    </section>
-    <section id="results">
-      <h3>Results</h3>
-    </section>
-  `;
+    container.innerHTML = `
+        <section>
+            <table>
+            <tr>
+                <td>Temperature rise:</td>
+                <td><input id="tempRise" type="text"></td>
+                <td>°C</td>
+            </tr>
+            <tr>
+                <td>Copper thickness:</td>
+                <td><input id="copperThickness" type="text"></td>
+                <td><select id="thickness">
+                <option value="oz">oz</option>
+                <option value="mil">mil</option>
+                <option value="mm">mm</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Layer:</td>
+                <td><select id="layer">
+                <option value="external">external</option>
+                <option value="internal">internal</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Mode:</td>
+                <td><input type="radio" name="mode" /> calculate minimum trace width<br/>
+                    <input type="radio" name="mode" /> calculate maximum current</td>
+            </tr>
+            <tr>
+                <td>Current:</td>
+                <td><input id="current" type="text"></td>
+                <td>A</td>
+            </tr>
+            <tr>
+                <td>Trace width:</td>
+                <td><input id="width" type="text"></td>
+                <td><select id="unit">
+                    <option value="mm">mm</option>
+                    <option value="mil">mil</option>
+                </select></td>
+            </tr>
+            </table>
+        </section>
+        <section id="results">
+            <h3>Results</h3>
+        </section>
+    `;
 }
 
 //     <div class="panel">

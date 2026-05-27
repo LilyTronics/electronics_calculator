@@ -2,9 +2,9 @@
 
 export const calculators =
 [
-  // PCB design
-  { module: "pcb-trace-width" },
+    // PCB design
+    { module: "pcb-trace-width" },
 
-  // Components
-  { module: "az1117" }
+    // Components
+    { module: "az1117" }
 ];

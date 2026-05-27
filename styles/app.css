@@ -2,25 +2,25 @@
 
 img.app-logo
 {
-  width: 150px;
+    width: 150px;
 }
 
 .app-main
 {
-  min-height: 600px;
+    min-height: 600px;
 }
 
 .app-tiles-flex
 {
-  gap: 16px;
-  flex-flow: row wrap;
-  justify-content: center
+    gap: 16px;
+    flex-flow: row wrap;
+    justify-content: center
 }
 
 .app-tile
 {
-  padding: 8px;
-  width: 200px;
-  height: 100px;
-  cursor: pointer;
+      padding: 8px;
+      width: 200px;
+      height: 100px;
+      cursor: pointer;
 }

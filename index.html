@@ -1,46 +1,46 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="styles/w3.css" />
-  <link rel="stylesheet" href="styles/w3-theme-lilytronics.css" />
-  <link rel="stylesheet" href="styles/app.css" />
-  <title>Electronics Calculators</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="styles/w3.css" />
+    <link rel="stylesheet" href="styles/w3-theme-lilytronics.css" />
+    <link rel="stylesheet" href="styles/app.css" />
+    <title>Electronics Calculators</title>
 </head>
 <body>
-  <header class="w3-container w3-theme">
-    <div class="w3-content w3-padding">
-      <img class="w3-left w3-margin-right app-logo" src="images/logo-lilytronics.svg" />
-      <h2 class="w3-left w3">Electronics calculators</h2>
-    </div>
-  </header>
+    <header class="w3-container w3-theme">
+        <div class="w3-content w3-padding">
+            <img class="w3-left w3-margin-right app-logo" src="images/logo-lilytronics.svg" />
+            <h2 class="w3-left w3">Electronics calculators</h2>
+        </div>
+    </header>
 
-  <main class="w3-container w3-content app-main">
-    <!-- Tiles for the home screen -->
-    <div id="homeView" class="w3-flex w3-padding app-tiles-flex"></div>
+    <main class="w3-container w3-content app-main">
+        <!-- Tiles for the home screen -->
+        <div id="homeView" class="w3-flex w3-padding app-tiles-flex"></div>
 
-    <!-- Calculator view: dynamic content -->
-    <div id="calculatorView" class="w3-hide">
-      <div class="w3-container">
-        <h3 id="calculatorTitle" class="w3-left">Test</h3>
-        <p class="w3-right">
-        <button id="backButton" class="w3-btn w3-hover-theme-light">⬅ Back</button>
+        <!-- Calculator view: dynamic content -->
+        <div id="calculatorView" class="w3-hide">
+            <div class="w3-container">
+                <h3 id="calculatorTitle" class="w3-left">Test</h3>
+                <p class="w3-right">
+                    <button id="backButton" class="w3-btn w3-hover-theme-light">⬅ Back</button>
+                </p>
+            </div>
+            <div class="w3-container">
+                <p id="calculatorDescription"></p>
+            </div>
+            <div id="calculatorContainer"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p class="w3-center w3-small">&copy; copyright
+
         </p>
-      </div>
-      <div class="w3-container">
-        <p id="calculatorDescription"></p>
-      </div>
-      <div id="calculatorContainer"></div>
-    </div>
-  </main>
+    </footer>
 
-  <footer>
-    <p class="w3-center w3-small">&copy; copyright
-      <a class="w3-link-theme" href="https://lilytronics.nl">LilyTronics</a>
-    </p>
-  </footer>
-
-  <script type="module" src="app/app.js"></script>
+      <script type="module" src="app/app.js"></script>
 </body>
 </html>
