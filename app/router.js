@@ -14,5 +14,5 @@ export function setRoute(id)
 
 export function onRouteChange(cb)
 {
-
+    window.addEventListener("hashchange", cb);
 }
