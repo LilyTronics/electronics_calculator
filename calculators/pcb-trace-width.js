@@ -18,16 +18,16 @@ export function render(container)
                 <td>Copper thickness:</td>
                 <td><input id="copperThickness" type="text"></td>
                 <td><select id="thickness">
-                <option value="oz">oz</option>
-                <option value="mil">mil</option>
-                <option value="mm">mm</option>
+                    <option value="oz">oz</option>
+                    <option value="mil">mil</option>
+                    <option value="mm">mm</option>
                 </select></td>
             </tr>
             <tr>
                 <td>Layer:</td>
                 <td><select id="layer">
-                <option value="external">external</option>
-                <option value="internal">internal</option>
+                    <option value="external">external</option>
+                    <option value="internal">internal</option>
                 </select></td>
             </tr>
             <tr>
