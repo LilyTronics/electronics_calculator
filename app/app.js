@@ -3,6 +3,7 @@
 import { debugLog } from "./logger.js";
 import { setRoute, getRoute, onRouteChange } from "./router.js";
 import { moduleCache, loadModule } from "./module-cache.js";
+import { render } from "./render.js";
 import { calculators } from "../calculators/calculators.js";
 
 const homeView = document.getElementById("homeView");
@@ -67,15 +68,10 @@ async function renderRoute()
         calculatorTitle.textContent = mod.meta.name;
         calculatorDescription.textContent = mod.meta.description + ".";
 
-        // Render calculator UI
-        try
+        debugLog("Render UI");
+        if (render(calculatorContainer, mod))
         {
-          mod.render(calculatorContainer);
           return;
-        }
-        catch (error)
-        {
-          debugLog("Error rendering view:", error)
         }
       }
     }
