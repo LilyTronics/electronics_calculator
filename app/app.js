@@ -66,7 +66,7 @@ async function renderRoute()
       // Render calculator UI
       try
       {
-        //mod.render(calculatorContainer);
+        mod.render(calculatorContainer);
         return;
       }
       catch (error)

@@ -4,39 +4,57 @@ export const meta =
   description: "IPC-2221: trace width for a given current"
 };
 
-// export function render(container)
-// {
-//   container.innerHTML = `
-//     <div class="panel">
-//       <label>Stroom (A)
-//         <input id="current" type="number" value="2" step="0.1" min="0.001">
-//       </label>
-
-//       <label>Temperatuurstijging ΔT (°C)
-//         <input id="tempRise" type="number" value="10" step="1" min="1">
-//       </label>
-
-//       <label>Koper dikte (oz)
-//         <select id="thickness">
-//           <option value="0.5">0.5 oz</option>
-//           <option value="1" selected>1 oz</option>
-//           <option value="2">2 oz</option>
-//         </select>
-//       </label>
-
-//       <label>Laag
-//         <select id="layer">
-//           <option value="external" selected>External</option>
-//           <option value="internal">Internal</option>
-//         </select>
-//       </label>
-
-//       <label>Trace lengte (mm) <span class="muted">(optioneel)</span>
-//         <input id="length" type="number" value="" step="1" min="0">
-//       </label>
-
-//       <button id="calcBtn">Bereken</button>
-//     </div>
+export function render(container)
+{
+  container.innerHTML = `
+    <section>
+      <table>
+        <tr>
+          <td>Temperature rise:</td>
+          <td><input id="tempRise" type="text"></td>
+          <td>°C</td>
+        </tr>
+        <tr>
+          <td>Copper thickness:</td>
+          <td><input id="copperThickness" type="text"></td>
+          <td><select id="thickness">
+            <option value="oz">oz</option>
+            <option value="mil">mil</option>
+            <option value="mm">mm</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td>Layer:</td>
+          <td><select id="layer">
+            <option value="external">external</option>
+            <option value="internal">internal</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td>Mode:</td>
+          <td><input type="radio" name="mode" /> calculate minimum trace width<br/>
+              <input type="radio" name="mode" /> calculate maximum current</td>
+        </tr>
+        <tr>
+          <td>Current:</td>
+          <td><input id="current" type="text"></td>
+          <td>A</td>
+        </tr>
+        <tr>
+          <td>Trace width:</td>
+          <td><input id="width" type="text"></td>
+          <td><select id="unit">
+            <option value="mm">mm</option>
+            <option value="mil">mil</option>
+          </select></td>
+        </tr>
+      </table>
+    </section>
+    <section id="results">
+      <h3>Results</h3>
+    </section>
+  `;
+}
 
 //     <div class="panel">
 //       <h3>Resultaten</h3>
