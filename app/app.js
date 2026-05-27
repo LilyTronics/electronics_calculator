@@ -9,6 +9,7 @@ const homeView = document.getElementById("homeView");
 const calculatorView = document.getElementById("calculatorView");
 const calculatorTitle = document.getElementById("calculatorTitle");
 const backButton = document.getElementById("backButton");
+const calculatorDescription = document.getElementById("calculatorDescription");
 const calculatorContainer = document.getElementById("calculatorContainer");
 
 
@@ -30,7 +31,7 @@ async function renderTiles()
     tile.classList.add("app-tile");
     tile.innerHTML = `
       <div class="w3-center w3-bold">${mod.meta.name}</div>
-      <div class="w3-center w3-small">${mod.meta.desc ?? ""}</div>
+      <div class="w3-center w3-small">${mod.meta.description ?? ""}</div>
     `;
     tile.addEventListener("click", () => setRoute(entry.module));
     debugLog("Add tile:", tile);
@@ -57,6 +58,9 @@ async function renderRoute()
       // Hide tiles, show calculator
       homeView.classList.add("w3-hide");
       calculatorView.classList.remove("w3-hide");
+
+      calculatorTitle.textContent = mod.meta.name;
+      calculatorDescription.textContent = mod.meta.description;
 
       // Render calculator UI
       try

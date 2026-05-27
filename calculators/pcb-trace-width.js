@@ -1,15 +1,12 @@
 export const meta =
 {
   name: "PCB trace width",
-  desc: "IPC-2221: trace width for a given current"
+  description: "IPC-2221: trace width for a given current"
 };
 
 export function render(container)
 {
   container.innerHTML = `
-    <h2>${meta.icon} ${meta.name}</h2>
-    <p>${meta.desc}</p>
-
     <div class="panel">
       <label>Stroom (A)
         <input id="current" type="number" value="2" step="0.1" min="0.001">
