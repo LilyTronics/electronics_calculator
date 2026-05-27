@@ -4,71 +4,83 @@ import { setRoute, getRoute, onRouteChange } from "./router.js";
 import { moduleCache, loadModule } from "./module-cache.js";
 import { calculators } from "../calculators/calculators.js";
 
-const homeView = document.getElementById("homeView");
-// const calcView = document.getElementById("calcView");
-// const calcContainer = document.getElementById("calcContainer");
-// const backBtn = document.getElementById("backBtn");
-// const appTitle = document.getElementById("appTitle");
+const DEBUG = true;
 
+const homeView = document.getElementById("homeView");
+const calculatorView = document.getElementById("calculatorView");
+const calculatorTitle = document.getElementById("calculatorTitle");
+const backButton = document.getElementById("backButton");
+const calculatorContainer = document.getElementById("calculatorContainer");
+
+// Debug log function if debug is enabled
+const debugLog = DEBUG ? (...args) => console.log(new Date().toISOString(), ...args) : () => {};
+
+
+// Render the tiles for the home screen
 async function renderTiles()
 {
   homeView.innerHTML = "";
 
+  debugLog("Create tiles");
   for (const entry of calculators)
   {
+    debugLog("Load module:", entry.module);
     const mod = await loadModule(entry.module);
-    const meta = mod.meta;
 
+    debugLog("Meta:", mod.meta);
     const tile = document.createElement("div");
     tile.classList.add("w3-card");
     tile.classList.add("w3-round");
     tile.classList.add("app-tile");
     tile.innerHTML = `
-      <div class="w3-center w3-bold">${meta.name}</div>
-      <div class="w3-center w3-small">${meta.desc ?? ""}</div>
+      <div class="w3-center w3-bold">${mod.meta.name}</div>
+      <div class="w3-center w3-small">${mod.meta.desc ?? ""}</div>
     `;
     tile.addEventListener("click", () => setRoute(entry.module));
+    debugLog("Add tile:", tile);
     homeView.appendChild(tile);
   }
 }
 
-// // 5) Render current route
-// async function renderRoute() {
-//   const id = getRoute(); // "" or "pcb-trace-width"
+// Render the page according to the route
+async function renderRoute()
+{
+  const id = getRoute();
 
-//   if (!id) {
-//     // show home
-//     homeView.classList.remove("hidden");
-//     calcView.classList.add("hidden");
-//     backBtn.classList.add("hidden");
-//     appTitle.textContent = "Elektronica Calculators";
-//     return;
-//   }
+  debugLog("Route:", id);
 
-//   // find module by id
-//   for (const entry of calculators) {
-//     const mod = await loadModule(entry.module);
-//     if (mod.meta?.id === id) {
-//       // show calculator
-//       homeView.classList.add("hidden");
-//       calcView.classList.remove("hidden");
-//       backBtn.classList.remove("hidden");
-//       appTitle.textContent = mod.meta.name;
+  // find module by id
+  for (const entry of calculators)
+  {
+    if (id === entry.module)
+    {
+      debugLog("Loading:", entry.module);
+      const mod = await loadModule(entry.module);
+      debugLog("Module:", mod)
 
-//       // render calculator UI
-//       mod.render(calcContainer);
-//       return;
-//     }
-//   }
+      // Hide tiles, show calculator
+      homeView.classList.add("w3-hide");
+      calculatorView.classList.remove("w3-hide");
 
-//   // unknown route -> go home
-//   setRoute("");
-// }
+      // Render calculator UI
+      try {
+        mod.render(calculatorContainer);
+        return;
+      } catch (error) {
+        debugLog("Error rendering view:", error)
+      }
+    }
+  }
 
-// // Back button
-// backBtn.addEventListener("click", () => setRoute(""));
+  debugLog("Not a calculator, show tiles");
+  homeView.classList.remove("w3-hide");
+  calculatorView.classList.add("w3-hide");
+}
+
+// Back button
+backButton.addEventListener("click", () => setRoute(""));
 
 // Init application
 await renderTiles();
-// onRouteChange(renderRoute);
-// renderRoute();
+onRouteChange(renderRoute);
+renderRoute();

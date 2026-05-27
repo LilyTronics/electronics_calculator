@@ -29,17 +29,3 @@ img.app-logo
 {
   transform: translateY(-2px);
 }
-
-/* Old stuff that will be replaced */
-
-.hidden { display: none; }
-
-.panel { border: 1px solid #eee; border-radius: 12px; padding: 12px; margin: 12px 0; background: #fff; }
-label { display: block; margin: 10px 0; }
-input, select { width: 100%; padding: 8px; margin-top: 6px; }
-button { padding: 10px 12px; border-radius: 10px; border: 1px solid #ddd; background: #f3f3f3; cursor: pointer; }
-.kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
-.muted { color: #777; font-size: 12px; }
-.table { width: 100%; border-collapse: collapse; }
-.table th, .table td { border: 1px solid #eee; padding: 6px; text-align: right; }
-.table th:first-child, .table td:first-child { text-align: right; }
