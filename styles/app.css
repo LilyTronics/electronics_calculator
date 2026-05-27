@@ -4,3 +4,6 @@
 .app-main {min-height: 600px;}
 .app-tiles-flex {gap: 16px; flex-flow: row wrap; justify-content: center}
 .app-tile {padding: 8px; width: 200px; height: 100px; cursor: pointer;}
+table {width: auto !important;}
+input[type=radio] {width:16px; height:16px; top:3px}
+td {vertical-align: middle !important;}

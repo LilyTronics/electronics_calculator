@@ -32,7 +32,7 @@ export function render(container)
             </tr>
             <tr>
                 <td>Mode:</td>
-                <td><input type="radio" name="mode" /> calculate minimum trace width<br/>
+                <td colspan="2"><input type="radio" name="mode" /> calculate minimum trace width<br/>
                     <input type="radio" name="mode" /> calculate maximum current</td>
             </tr>
             <tr>
@@ -49,9 +49,6 @@ export function render(container)
                 </select></td>
             </tr>
             </table>
-        </section>
-        <section id="results">
-            <h3>Results</h3>
         </section>
     `;
 }
