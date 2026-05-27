@@ -29,6 +29,7 @@ async function renderTiles()
     tile.classList.add("w3-card");
     tile.classList.add("w3-round");
     tile.classList.add("app-tile");
+    tile.classList.add("w3-hover-theme-light");
     tile.innerHTML = `
       <div class="w3-center w3-bold">${mod.meta.name}</div>
       <div class="w3-center w3-small">${mod.meta.description ?? ""}</div>
@@ -60,12 +61,12 @@ async function renderRoute()
       calculatorView.classList.remove("w3-hide");
 
       calculatorTitle.textContent = mod.meta.name;
-      calculatorDescription.textContent = mod.meta.description;
+      calculatorDescription.textContent = mod.meta.description + ".";
 
       // Render calculator UI
       try
       {
-        mod.render(calculatorContainer);
+        //mod.render(calculatorContainer);
         return;
       }
       catch (error)
