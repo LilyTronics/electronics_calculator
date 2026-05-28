@@ -28,7 +28,8 @@ function checkModule(mod, path)
         [mod.meta?.name, "No name in meta data"],
         [mod.meta?.description, "No description in meta data"],
         [mod?.render, "No render function"],
-        [typeof mod.render === "function", "Property render is not a function"]
+        [typeof mod.render === "function", "Property render is not a function"],
+        [mod?.defaults, "No defaults"]
     ];
 
     for (const [condition, msg] of checks)
