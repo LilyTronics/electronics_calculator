@@ -4,6 +4,18 @@ export const meta =
     description: "IPC-2221: trace width for a given current"
 };
 
+export const defaults =
+{
+    tempRise: 10,
+    thickness: 1,
+    thicknessUnit: "oz",
+    layer: "external",
+    mode: "width",
+    current: 1,
+    width: 0.5,
+    widthUnit: "mm"
+};
+
 export function render(container)
 {
     container.innerHTML = `
@@ -15,8 +27,8 @@ export function render(container)
             </tr>
             <tr>
                 <td>Copper thickness:</td>
-                <td><input id="copperThickness" type="text" size="5">
-                    <select id="thickness">
+                <td><input id="thickness" type="text" size="5">
+                    <select id="thicknessUnit">
                         <option value="oz">oz</option>
                         <option value="mil">mil</option>
                         <option value="mm">mm</option>
@@ -31,8 +43,8 @@ export function render(container)
             </tr>
             <tr>
                 <td>Mode:</td>
-                <td><input type="radio" name="mode" /> calculate minimum trace width<br/>
-                    <input type="radio" name="mode" /> calculate maximum current</td>
+                <td><input type="radio" name="mode" value="width" /> calculate minimum trace width<br/>
+                    <input type="radio" name="mode" vlaue="current" /> calculate maximum current</td>
             </tr>
             <tr>
                 <td>Current:</td>
@@ -41,7 +53,7 @@ export function render(container)
             <tr>
                 <td>Trace width:</td>
                 <td><input id="width" type="text" size="5">
-                    <select id="unit">
+                    <select id="widthUnit">
                         <option value="mm">mm</option>
                         <option value="mil">mil</option>
                 </select></td>
