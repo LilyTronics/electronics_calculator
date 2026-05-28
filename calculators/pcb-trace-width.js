@@ -11,17 +11,16 @@ export function render(container)
             <table>
             <tr>
                 <td>Temperature rise:</td>
-                <td><input id="tempRise" type="text"></td>
-                <td>°C</td>
+                <td><input id="tempRise" type="text" size="5"> °C</td>
             </tr>
             <tr>
                 <td>Copper thickness:</td>
-                <td><input id="copperThickness" type="text"></td>
-                <td><select id="thickness">
-                    <option value="oz">oz</option>
-                    <option value="mil">mil</option>
-                    <option value="mm">mm</option>
-                </select></td>
+                <td><input id="copperThickness" type="text" size="5">
+                    <select id="thickness">
+                        <option value="oz">oz</option>
+                        <option value="mil">mil</option>
+                        <option value="mm">mm</option>
+                    </select></td>
             </tr>
             <tr>
                 <td>Layer:</td>
@@ -32,20 +31,19 @@ export function render(container)
             </tr>
             <tr>
                 <td>Mode:</td>
-                <td colspan="2"><input type="radio" name="mode" /> calculate minimum trace width<br/>
+                <td><input type="radio" name="mode" /> calculate minimum trace width<br/>
                     <input type="radio" name="mode" /> calculate maximum current</td>
             </tr>
             <tr>
                 <td>Current:</td>
-                <td><input id="current" type="text"></td>
-                <td>A</td>
+                <td><input id="current" type="text" size="5"> A</td>
             </tr>
             <tr>
                 <td>Trace width:</td>
-                <td><input id="width" type="text"></td>
-                <td><select id="unit">
-                    <option value="mm">mm</option>
-                    <option value="mil">mil</option>
+                <td><input id="width" type="text" size="5">
+                    <select id="unit">
+                        <option value="mm">mm</option>
+                        <option value="mil">mil</option>
                 </select></td>
             </tr>
             </table>
