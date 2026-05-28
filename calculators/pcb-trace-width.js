@@ -10,6 +10,8 @@ export const defaults =
     thickness: 1,
     thicknessUnit: "oz",
     layer: "external",
+    length: 10,
+    lengthUnit: "mm",
     mode: "width",
     current: 1,
     width: 0.3,
@@ -40,6 +42,14 @@ export function render(container)
                     <option value="external">external</option>
                     <option value="internal">internal</option>
                 </select></td>
+            </tr>
+            <tr>
+                <td>Trace length:</td>
+                <td><input id="length" type="text" size="5">
+                    <select id="lengthUnit">
+                        <option value="mm">mm</option>
+                        <option value="mil">mil</option>
+                    </select></td>
             </tr>
             <tr>
                 <td>Mode:</td>
