@@ -9,12 +9,17 @@ export const defaults =
 
 };
 
-export function renderInput(container)
+export function renderInput(containerInput)
 {
 
 }
 
-export function calculate(container)
+export function calculate(containerInput)
 {
 
-};
+}
+
+export function renderResults(results, containerOutput)
+{
+
+}

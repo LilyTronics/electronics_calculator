@@ -1,6 +1,6 @@
 /* Logger function */
 
-const DEBUG = true;
+const DEBUG = false;
 
 function formatDateTime(date)
 {

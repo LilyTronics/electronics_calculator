@@ -125,22 +125,19 @@ export function calculate(containerInput)
 
     // Resistance:
     // R = r * L / (W * T)
-    // r = 1.68 × 10^-8 Ωm (resistivity of copper)
+    // r = 1.72 × 10^-8 Ωm (resistivity of copper at 25 degrees)
     // L and W * T in meter
-    // R ≈ 0.0164 Ω  (≈ 16.4 mΩ)
-    // mil to meter => 1 mil = 2.54 * 10^-5 m
-    console.log(length, width, thickness);
-
-    const voltDrop = 0;
-    const powerLoss = 0;
+    const res = ( 1.72 / 2.54) * length / (width * thickness);
+    const voltDrop = current * res;
+    const powerLoss = voltDrop * current;
 
     return [
         { label: "Current", value: current.toFixed(5), unit: "A" },
         { label: "Trace width", value: (width * 0.0254).toFixed(5), unit: "mm" },
         { label: "Trace width", value: width.toFixed(5), unit: "mil" },
-        { label: "Resistance", value: res.toFixed(5), unit: "Ω" },
-        { label: "Voltage drop", value: voltDrop.toFixed(5), unit: "V" },
-        { label: "Power loss", value: powerLoss.toFixed(5), unit: "W" }
+        { label: "Resistance", value: res.toFixed(5), unit: "mΩ" },
+        { label: "Voltage drop", value: voltDrop.toFixed(5), unit: "mV" },
+        { label: "Power loss", value: powerLoss.toFixed(5), unit: "mW" }
     ];
 };
 
