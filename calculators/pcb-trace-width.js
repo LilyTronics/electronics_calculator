@@ -12,7 +12,7 @@ export const defaults =
     layer: "external",
     mode: "width",
     current: 1,
-    width: 0.5,
+    width: 0.3,
     widthUnit: "mm"
 };
 
@@ -44,13 +44,13 @@ export function render(container)
             <tr>
                 <td>Mode:</td>
                 <td><input type="radio" name="mode" value="width" /> calculate minimum trace width<br/>
-                    <input type="radio" name="mode" vlaue="current" /> calculate maximum current</td>
+                    <input type="radio" name="mode" value="current" /> calculate maximum current</td>
             </tr>
-            <tr>
+            <tr id="calcWidth">
                 <td>Current:</td>
                 <td><input id="current" type="text" size="5"> A</td>
             </tr>
-            <tr>
+            <tr id="calcCurrent" style="display:none">
                 <td>Trace width:</td>
                 <td><input id="width" type="text" size="5">
                     <select id="widthUnit">
@@ -61,6 +61,18 @@ export function render(container)
             </table>
         </section>
     `;
+
+    const elms = document.getElementsByName("mode");
+    for (const elm of elms)
+    {
+        elm.addEventListener("click", () => {
+            document.getElementById("calcWidth").style.display = "none";
+            document.getElementById("calcCurrent").style.display = "none";
+            let id = elm.value;
+            id = "calc" + id[0].toUpperCase() + id.slice(1);
+            document.getElementById(id).style.display = "table-row";
+        });
+    }
 }
 
 //     <div class="panel">

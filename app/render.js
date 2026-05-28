@@ -32,7 +32,8 @@ function applyDefaults(mod)
         elm = document.querySelector(`input[name="${key}"][value="${value}"]`);
         if (elm)
         {
-            elm.checked = true;
+            // Click also fires the event
+            elm.click();
         }
     });
 }
