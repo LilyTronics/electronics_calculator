@@ -1,5 +1,7 @@
 /* Renders the module content and applies proper styles */
 
+import { debugLog } from "./logger.js";
+
 export function render(container, mod)
 {
     container.innerHTML = "";
@@ -7,6 +9,7 @@ export function render(container, mod)
     {
         mod.render(container);
         applyStyles(container);
+        applyDefaults(mod);
         return true;
     }
     catch (error)
@@ -14,6 +17,24 @@ export function render(container, mod)
         debugLog("Error rendering view:", error)
     }
     return false;
+}
+
+function applyDefaults(mod)
+{
+    // Apply default values from module or from local storage if they exist
+    Object.entries(mod.defaults).forEach(([key, value]) => {
+        let elm = document.getElementById(key);
+        if (elm)
+        {
+            elm.value = value;
+        }
+        // Could be radio button group
+        elm = document.querySelector(`input[name="${key}"][value="${value}"]`);
+        if (elm)
+        {
+            elm.checked = true;
+        }
+    });
 }
 
 function applyStyles(container)
