@@ -83,7 +83,7 @@ export function render(container)
     }
 }
 
-export function calculate()
+export function calculate(container)
 {
     // Inputs
     const tempRise = parseFloat(document.getElementById("tempRise").value);
@@ -124,6 +124,8 @@ export function calculate()
 
     console.log("width", width);
     console.log("current", current);
+    console.log(container);
+
 };
 
 function ToMil(value, unit)

@@ -14,7 +14,7 @@ export function render(container)
 
 }
 
-export function calculate()
+export function calculate(container)
 {
 
 };

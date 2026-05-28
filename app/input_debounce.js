@@ -13,7 +13,7 @@
 
     // Debounce
     const input = document.getElementById("searchBox");
-    input.addEventListener("input", debounce(handleInput));
+    input.addEventListener("input", debounce((e) => handleInput(e)));
     </script>
 */
 

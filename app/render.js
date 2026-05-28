@@ -3,14 +3,15 @@
 import { debugLog } from "./logger.js";
 import { debounce } from "./input_debounce.js";
 
-export function render(container, mod)
+
+export function render(mod, containerInput, containerOutput)
 {
-    container.innerHTML = "";
+    containerInput.innerHTML = "";
     try
     {
-        mod.render(container);
+        mod.render(containerInput);
         applyDefaults(mod);
-        applyStyles(container, mod);
+        applyStyles(mod, containerInput, containerOutput);
         return true;
     }
     catch (error)
@@ -39,28 +40,30 @@ function applyDefaults(mod)
     });
 }
 
-function applyStyles(container, mod)
+function applyStyles(mod, containerInput, containerOutput)
 {
+    const eventHandler = debounce((e) => mod.calculate(containerOutput));
+
     // Tables
-    document.querySelectorAll("table").forEach(elm => {
+    containerInput.querySelectorAll("table").forEach(elm => {
         elm.className = "w3-table";
     });
     // Inputs
-    document.querySelectorAll("input").forEach(elm => {
+    containerInput.querySelectorAll("input").forEach(elm => {
         if (elm.type == "radio")
         {
             elm.className = "w3-radio";
-            elm.addEventListener("input", mod.calculate);
+            elm.addEventListener("input", eventHandler);
         }
         else
         {
             elm.className = "w3-input w3-border w3-padding-small w3-round";
-            elm.addEventListener("input", debounce(mod.calculate));
+            elm.addEventListener("input", eventHandler);
         }
     });
     // Select
-    document.querySelectorAll("select").forEach(elm => {
+    containerInput.querySelectorAll("select").forEach(elm => {
         elm.className = "w3-select w3-border w3-padding-small w3-round";
-        elm.addEventListener("input", mod.calculate);
+        elm.addEventListener("input", eventHandler);
     });
 }
