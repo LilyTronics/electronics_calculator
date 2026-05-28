@@ -13,3 +13,8 @@ export function render(container)
 {
 
 }
+
+export function calculate()
+{
+
+};

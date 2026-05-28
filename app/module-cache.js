@@ -29,7 +29,9 @@ function checkModule(mod, path)
         [mod.meta?.description, "No description in meta data"],
         [mod?.render, "No render function"],
         [typeof mod.render === "function", "Property render is not a function"],
-        [mod?.defaults, "No defaults"]
+        [mod?.defaults, "No defaults"],
+        [mod?.calculate, "No calculate function"],
+        [typeof mod.calculate === "function", "Property calculate is not a function"],
     ];
 
     for (const [condition, msg] of checks)

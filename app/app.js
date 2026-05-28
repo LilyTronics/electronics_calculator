@@ -11,7 +11,7 @@ const calculatorView = document.getElementById("calculatorView");
 const calculatorTitle = document.getElementById("calculatorTitle");
 const backButton = document.getElementById("backButton");
 const calculatorDescription = document.getElementById("calculatorDescription");
-const calculatorContainer = document.getElementById("calculatorContainer");
+const calculatorInput = document.getElementById("calculatorInput");
 
 
 // Render the tiles for the home screen
@@ -69,8 +69,9 @@ async function renderRoute()
                 calculatorDescription.textContent = mod.meta.description + ".";
 
                 debugLog("Render UI");
-                if (render(calculatorContainer, mod))
+                if (render(calculatorInput, mod))
                 {
+                    mod.calculate();
                     return;
                 }
             }

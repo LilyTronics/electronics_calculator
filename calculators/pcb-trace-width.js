@@ -21,55 +21,53 @@ export const defaults =
 export function render(container)
 {
     container.innerHTML = `
-        <section>
-            <table>
-            <tr>
-                <td>Temperature rise:</td>
-                <td><input id="tempRise" type="text" size="5"> °C</td>
-            </tr>
-            <tr>
-                <td>Copper thickness:</td>
-                <td><input id="thickness" type="text" size="5">
-                    <select id="thicknessUnit">
-                        <option value="oz">oz</option>
-                        <option value="mil">mil</option>
-                        <option value="mm">mm</option>
-                    </select></td>
-            </tr>
-            <tr>
-                <td>Layer:</td>
-                <td><select id="layer">
-                    <option value="external">external</option>
-                    <option value="internal">internal</option>
+        <table>
+        <tr>
+            <td>Temperature rise:</td>
+            <td><input id="tempRise" type="text" size="5"> °C</td>
+        </tr>
+        <tr>
+            <td>Copper thickness:</td>
+            <td><input id="thickness" type="text" size="5">
+                <select id="thicknessUnit">
+                    <option value="oz">oz</option>
+                    <option value="mil">mil</option>
+                    <option value="mm">mm</option>
                 </select></td>
-            </tr>
-            <tr>
-                <td>Trace length:</td>
-                <td><input id="length" type="text" size="5">
-                    <select id="lengthUnit">
-                        <option value="mm">mm</option>
-                        <option value="mil">mil</option>
-                    </select></td>
-            </tr>
-            <tr>
-                <td>Mode:</td>
-                <td><input type="radio" name="mode" value="width" /> calculate minimum trace width<br/>
-                    <input type="radio" name="mode" value="current" /> calculate maximum current</td>
-            </tr>
-            <tr id="calcWidth">
-                <td>Current:</td>
-                <td><input id="current" type="text" size="5"> A</td>
-            </tr>
-            <tr id="calcCurrent" style="display:none">
-                <td>Trace width:</td>
-                <td><input id="width" type="text" size="5">
-                    <select id="widthUnit">
-                        <option value="mm">mm</option>
-                        <option value="mil">mil</option>
+        </tr>
+        <tr>
+            <td>Layer:</td>
+            <td><select id="layer">
+                <option value="external">external</option>
+                <option value="internal">internal</option>
+            </select></td>
+        </tr>
+        <tr>
+            <td>Trace length:</td>
+            <td><input id="length" type="text" size="5">
+                <select id="lengthUnit">
+                    <option value="mm">mm</option>
+                    <option value="mil">mil</option>
                 </select></td>
-            </tr>
-            </table>
-        </section>
+        </tr>
+        <tr>
+            <td>Mode:</td>
+            <td><input type="radio" name="mode" value="width" /> calculate minimum trace width<br/>
+                <input type="radio" name="mode" value="current" /> calculate maximum current</td>
+        </tr>
+        <tr id="calcWidth">
+            <td>Current:</td>
+            <td><input id="current" type="text" size="5"> A</td>
+        </tr>
+        <tr id="calcCurrent" style="display:none">
+            <td>Trace width:</td>
+            <td><input id="width" type="text" size="5">
+                <select id="widthUnit">
+                    <option value="mm">mm</option>
+                    <option value="mil">mil</option>
+            </select></td>
+        </tr>
+        </table>
     `;
 
     const elms = document.getElementsByName("mode");
@@ -83,6 +81,62 @@ export function render(container)
             document.getElementById(id).style.display = "table-row";
         });
     }
+}
+
+export function calculate()
+{
+    // Inputs
+    const tempRise = parseFloat(document.getElementById("tempRise").value);
+    let thickness = parseFloat(document.getElementById("thickness").value);
+    const thicknessUnit = document.getElementById("thicknessUnit").value;
+    const layer = document.getElementById("layer").value;
+    const length = parseFloat(document.getElementById("length").value);
+    const lengthUnit = document.getElementById("lengthUnit").value;
+    let current = parseFloat(document.getElementById("current").value);
+    let width = parseFloat(document.getElementById("width").value);
+    const widthUnit = document.getElementById("widthUnit").value;
+    const mode = document.querySelector('input[name="mode"]:checked').value;
+
+    // IPC-2221 constants
+    const k = layer === "external" ? 0.048 : 0.024;
+    const b = 0.44;
+    const c = 0.725;
+
+    // Mode max current:
+    //   I = k × (ΔT)^b × (A)^c
+    // Mode trace width:
+    //   A = (I / (k × (ΔT)^b))^(1 / c)
+    //   W = (I / (k × (ΔT)^b))^(1 / c) / thickness
+
+    // All sizes in mil
+    thickness = ToMil(thickness, thicknessUnit);
+    width = ToMil(width, widthUnit);
+
+    if (mode == "width")
+    {
+        width = (current / (k * tempRise**b)) ** (1 / c) / thickness;
+    }
+    if (mode == "current")
+    {
+        const area = width * thickness;
+        current = k * tempRise**b * area**c;
+    }
+
+    console.log("width", width);
+    console.log("current", current);
+};
+
+function ToMil(value, unit)
+{
+    if (unit == "oz")
+    {
+        return value * 0.035 * 1000 / 25.4;
+    }
+    if (unit == "mm")
+    {
+        return value * 1000 / 25.4;
+    }
+    return value;
 }
 
 //     <div class="panel">
@@ -115,10 +169,6 @@ export function render(container)
 
 // export function compute({ current, tempRise, thicknessOz, layer, lengthMm })
 // {
-//   // IPC-2221 constants
-//   const k = layer === "external" ? 0.048 : 0.024;
-//   const b = 0.44;
-//   const c = 0.725;
 
 //   // area in mil^2
 //   const area_mil2 = Math.pow(current / (k * Math.pow(tempRise, b)), 1 / c);

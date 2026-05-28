@@ -5,7 +5,7 @@
 .app-tiles-flex {gap: 16px; flex-flow: row wrap; justify-content: center}
 .app-tile {padding: 8px; width: 200px; height: 100px; cursor: pointer;}
 table {width: auto !important;}
-td {vertical-align: middle !important;}
+td {vertical-align: middle !important; padding:8px 4px !important;}
 input {width:auto !important; display: inline !important;}
 input[type=radio] {width:20px; height:20px; top:5px}
 select {width:auto !important;}
