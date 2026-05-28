@@ -9,7 +9,7 @@ export const defaults =
 
 };
 
-export function render(container)
+export function renderInput(container)
 {
 
 }

@@ -27,11 +27,13 @@ function checkModule(mod, path)
         [mod?.meta, "No meta data"],
         [mod.meta?.name, "No name in meta data"],
         [mod.meta?.description, "No description in meta data"],
-        [mod?.render, "No render function"],
-        [typeof mod.render === "function", "Property render is not a function"],
+        [mod?.renderInput, "No renderInput function"],
+        [typeof mod.renderInput === "function", "Property renderInput is not a function"],
         [mod?.defaults, "No defaults"],
         [mod?.calculate, "No calculate function"],
         [typeof mod.calculate === "function", "Property calculate is not a function"],
+        [mod?.renderResults, "No renderResults function"],
+        [typeof mod.renderResults === "function", "Property renderResults is not a function"]
     ];
 
     for (const [condition, msg] of checks)

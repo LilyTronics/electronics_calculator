@@ -3,7 +3,7 @@
 import { debugLog } from "./logger.js";
 import { setRoute, getRoute, onRouteChange } from "./router.js";
 import { moduleCache, loadModule } from "./module-cache.js";
-import { render } from "./render.js";
+import { renderInput, processor } from "./module-processor.js";
 import { calculators } from "../calculators/calculators.js";
 
 const homeView = document.getElementById("homeView");
@@ -69,9 +69,9 @@ async function renderRoute()
                 calculatorDescription.textContent = mod.meta.description + ".";
 
                 debugLog("Render UI");
-                if (render(mod, calculatorInput, calculatorOutput))
+                if (renderInput(mod, calculatorInput, calculatorOutput))
                 {
-                    mod.calculate(calculatorOutput);
+                    processor(mod, calculatorInput, calculatorOutput);
                     return;
                 }
             }

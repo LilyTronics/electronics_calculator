@@ -18,10 +18,10 @@ export const defaults =
     widthUnit: "mm"
 };
 
-export function render(container)
+export function renderInput(containerInput)
 {
-    container.innerHTML = `
-        <table>
+    containerInput.innerHTML = `
+    <table>
         <tr>
             <td>Temperature rise:</td>
             <td><input id="tempRise" type="text" size="5"> °C</td>
@@ -67,10 +67,10 @@ export function render(container)
                     <option value="mil">mil</option>
             </select></td>
         </tr>
-        </table>
+    </table>
     `;
 
-    const elms = document.getElementsByName("mode");
+    const elms = containerInput.querySelectorAll('input[name="mode"]');
     for (const elm of elms)
     {
         elm.addEventListener("click", () => {
@@ -83,19 +83,19 @@ export function render(container)
     }
 }
 
-export function calculate(container)
+export function calculate(containerInput)
 {
     // Inputs
-    const tempRise = parseFloat(document.getElementById("tempRise").value);
-    let thickness = parseFloat(document.getElementById("thickness").value);
-    const thicknessUnit = document.getElementById("thicknessUnit").value;
-    const layer = document.getElementById("layer").value;
-    const length = parseFloat(document.getElementById("length").value);
-    const lengthUnit = document.getElementById("lengthUnit").value;
-    let current = parseFloat(document.getElementById("current").value);
-    let width = parseFloat(document.getElementById("width").value);
-    const widthUnit = document.getElementById("widthUnit").value;
-    const mode = document.querySelector('input[name="mode"]:checked').value;
+    const tempRise = parseFloat(containerInput.querySelector("#tempRise").value);
+    let thickness = parseFloat(containerInput.querySelector("#thickness").value);
+    const thicknessUnit = containerInput.querySelector("#thicknessUnit").value;
+    const layer = containerInput.querySelector("#layer").value;
+    let length = parseFloat(containerInput.querySelector("#length").value);
+    const lengthUnit = containerInput.querySelector("#lengthUnit").value;
+    let current = parseFloat(containerInput.querySelector("#current").value);
+    let width = parseFloat(containerInput.querySelector("#width").value);
+    const widthUnit = containerInput.querySelector("#widthUnit").value;
+    const mode = containerInput.querySelector('input[name="mode"]:checked').value;
 
     // IPC-2221 constants
     const k = layer === "external" ? 0.048 : 0.024;
@@ -111,6 +111,7 @@ export function calculate(container)
     // All sizes in mil
     thickness = ToMil(thickness, thicknessUnit);
     width = ToMil(width, widthUnit);
+    length = ToMil(length, lengthUnit);
 
     if (mode == "width")
     {
@@ -122,11 +123,57 @@ export function calculate(container)
         current = k * tempRise**b * area**c;
     }
 
-    console.log("width", width);
-    console.log("current", current);
-    console.log(container);
+    // Resistance:
+    // R = r * L / (W * T)
+    // r = 1.68 × 10^-8 Ωm (resistivity of copper)
+    // L and W * T in meter
+    // R ≈ 0.0164 Ω  (≈ 16.4 mΩ)
+    // mil to meter => 1 mil = 2.54 * 10^-5 m
+    console.log(length, width, thickness);
 
+    const voltDrop = 0;
+    const powerLoss = 0;
+
+    return [
+        { label: "Current", value: current.toFixed(5), unit: "A" },
+        { label: "Trace width", value: (width * 0.0254).toFixed(5), unit: "mm" },
+        { label: "Trace width", value: width.toFixed(5), unit: "mil" },
+        { label: "Resistance", value: res.toFixed(5), unit: "Ω" },
+        { label: "Voltage drop", value: voltDrop.toFixed(5), unit: "V" },
+        { label: "Power loss", value: powerLoss.toFixed(5), unit: "W" }
+    ];
 };
+
+export function renderResults(results, containerOutput)
+{
+    containerOutput.innerHTML = "";
+    results.forEach(row => {
+        const tr = document.createElement("tr");
+        const tdLabel = document.createElement("td");
+        tdLabel.textContent = `${row.label}:`;
+        const tdValue = document.createElement("td");
+        tdValue.textContent = `${row.value} ${row.unit}`;
+        tr.appendChild(tdLabel);
+        tr.appendChild(tdValue);
+        containerOutput.appendChild(tr);
+    });
+
+
+    //     <tr>
+    //         <td>Resistance:</td>
+    //         <td>xx &#8486;</td>
+    //     </tr>
+    //     <tr>
+    //         <td>Voltage drop:</td>
+    //         <td>xx V</td>
+    //     </tr>
+    //     <tr>
+    //         <td>Power loss:</td>
+    //         <td>xx W</td>
+    //     </tr>
+    // </table>
+    // `;
+}
 
 function ToMil(value, unit)
 {
@@ -141,33 +188,6 @@ function ToMil(value, unit)
     return value;
 }
 
-//     <div class="panel">
-//       <h3>Resultaten</h3>
-//       <div id="out"></div>
-//       <h3>Tabel (sweep)</h3>
-//       <table class="table" id="tbl"></table>
-//     </div>
-//   `;
-
-//   const btn = container.querySelector("#calcBtn");
-//   btn.addEventListener("click", () =>
-//   {
-//     const input =
-//     {
-//       current: parseFloat(container.querySelector("#current").value),
-//       tempRise: parseFloat(container.querySelector("#tempRise").value),
-//       thicknessOz: parseFloat(container.querySelector("#thickness").value),
-//       layer: container.querySelector("#layer").value,
-//       lengthMm: parseFloat(container.querySelector("#length").value) || null,
-//     };
-
-//     const result = compute(input);
-//     renderResult(container, input, result);
-//   });
-
-//   // auto-run once
-//   btn.click();
-// }
 
 // export function compute({ current, tempRise, thicknessOz, layer, lengthMm })
 // {
