@@ -1,6 +1,7 @@
 /* Logger function */
 
-const DEBUG = false;
+import { localConfig } from "./local_config.js";
+
 
 function formatDateTime(date)
 {
@@ -15,4 +16,4 @@ function formatDateTime(date)
 }
 
 // Debug log function if debug is enabled
-export const debugLog = DEBUG ? (...args) => console.log(formatDateTime(new Date()), ...args) : () => {};
+export const debugLog = localConfig.debug ? (...args) => console.log(formatDateTime(new Date()), ...args) : () => {};
