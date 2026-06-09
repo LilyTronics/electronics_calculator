@@ -1,4 +1,4 @@
-import { getFirstAboveE24, getRangeE24 } from "./models/resistor_values.js";
+import { getFirstAboveE24, getRangeE24 } from "./models/e_values.js";
 import { createResultsTable, createSweepTable } from "./models/data_tables.js";
 
 export const meta =
