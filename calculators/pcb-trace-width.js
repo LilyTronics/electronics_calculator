@@ -1,3 +1,6 @@
+import { toMil } from "./models/converters.js";
+import { createResultsTable } from "./models/data_tables.js";
+
 export const meta =
 {
     name: "PCB trace width",
@@ -109,9 +112,9 @@ export function calculate(containerInput)
     //   W = (I / (k × (ΔT)^b))^(1 / c) / thickness
 
     // All sizes in mil
-    thickness = ToMil(thickness, thicknessUnit);
-    width = ToMil(width, widthUnit);
-    length = ToMil(length, lengthUnit);
+    thickness = toMil(thickness, thicknessUnit);
+    width = toMil(width, widthUnit);
+    length = toMil(length, lengthUnit);
 
     if (mode == "width")
     {
@@ -132,125 +135,17 @@ export function calculate(containerInput)
     const powerLoss = voltDrop * current;
 
     return [
-        { label: "Current", value: current.toFixed(5), unit: "A" },
-        { label: "Trace width", value: (width * 0.0254).toFixed(5), unit: "mm" },
-        { label: "Trace width", value: width.toFixed(5), unit: "mil" },
-        { label: "Resistance", value: res.toFixed(5), unit: "mΩ" },
-        { label: "Voltage drop", value: voltDrop.toFixed(5), unit: "mV" },
-        { label: "Power loss", value: powerLoss.toFixed(5), unit: "mW" }
+        { label: "Current", value: current.toFixed(5) + " A" },
+        { label: "Trace width", value: (width * 0.0254).toFixed(5) + " mm" },
+        { label: "Trace width", value: width.toFixed(5) + " mil" },
+        { label: "Resistance", value: res.toFixed(5) + " mΩ" },
+        { label: "Voltage drop", value: voltDrop.toFixed(5) + " mV" },
+        { label: "Power loss", value: powerLoss.toFixed(5) + " mW" }
     ];
 };
 
 export function renderResults(results, containerOutput)
 {
     containerOutput.innerHTML = "";
-    results.forEach(row => {
-        const tr = document.createElement("tr");
-        const tdLabel = document.createElement("td");
-        tdLabel.textContent = `${row.label}:`;
-        const tdValue = document.createElement("td");
-        tdValue.textContent = `${row.value} ${row.unit}`;
-        tr.appendChild(tdLabel);
-        tr.appendChild(tdValue);
-        containerOutput.appendChild(tr);
-    });
-
-
-    //     <tr>
-    //         <td>Resistance:</td>
-    //         <td>xx &#8486;</td>
-    //     </tr>
-    //     <tr>
-    //         <td>Voltage drop:</td>
-    //         <td>xx V</td>
-    //     </tr>
-    //     <tr>
-    //         <td>Power loss:</td>
-    //         <td>xx W</td>
-    //     </tr>
-    // </table>
-    // `;
+    containerOutput.appendChild(createResultsTable(results));
 }
-
-function ToMil(value, unit)
-{
-    if (unit == "oz")
-    {
-        return value * 0.035 * 1000 / 25.4;
-    }
-    if (unit == "mm")
-    {
-        return value * 1000 / 25.4;
-    }
-    return value;
-}
-
-
-// export function compute({ current, tempRise, thicknessOz, layer, lengthMm })
-// {
-
-//   // area in mil^2
-//   const area_mil2 = Math.pow(current / (k * Math.pow(tempRise, b)), 1 / c);
-
-//   // copper thickness in mil (1 oz ≈ 1.378 mil)
-//   const thickness_mil = thicknessOz * 1.378;
-
-//   // width in mil
-//   const width_mil = area_mil2 / thickness_mil;
-//   const width_mm = width_mil * 0.0254;
-
-//   // optional resistance if length provided (very rough DC estimate)
-//   let resistance_ohm = null, vdrop_v = null, ploss_w = null;
-//   if (lengthMm)
-//   {
-//     const rho = 1.72e-8; // copper resistivity Ω·m
-//     const width_m = width_mm / 1000;
-//     const thick_m = (thickness_mil * 0.0254) / 1000;
-//     const area_m2 = width_m * thick_m;
-//     const len_m = lengthMm / 1000;
-
-//     resistance_ohm = rho * (len_m / area_m2);
-//     vdrop_v = resistance_ohm * current;
-//     ploss_w = vdrop_v * current;
-//   }
-
-//   return {
-//     width_mm,
-//     width_mil,
-//     area_mil2,
-//     resistance_ohm,
-//     vdrop_v,
-//     ploss_w,
-//   };
-// }
-
-// function renderResult(container, input, r)
-// {
-//   const out = container.querySelector("#out");
-//   out.innerHTML = `
-//     <div class="kpi">
-//       <div><span class="muted">Breedte</span><br><b>${r.width_mm.toFixed(3)} mm</b> (${r.width_mil.toFixed(2)} mil)</div>
-//       <div><span class="muted">Area</span><br><b>${r.area_mil2.toFixed(2)} mil²</b></div>
-//       ${
-//         r.resistance_ohm == null
-//           ? `<div class="muted">Lengte niet ingevuld → geen R/Vdrop/Ploss</div>`
-//           : `<div><span class="muted">R</span><br><b>${r.resistance_ohm.toExponential(3)} Ω</b><br>
-//              <span class="muted">Vdrop</span> ${r.vdrop_v.toFixed(4)} V<br>
-//              <span class="muted">Ploss</span> ${r.ploss_w.toFixed(4)} W</div>`
-//       }
-//     </div>
-//   `;
-
-//   // build sweep table
-//   const tbl = container.querySelector("#tbl");
-//   tbl.innerHTML = `<tr><th>I (A)</th><th>W (mm)</th></tr>`;
-
-//   const steps = 12;
-//   const maxI = Math.max(0.5, input.current * 2);
-//   for (let i = 0; i <= steps; i++)
-//   {
-//     const I = (maxI * i) / steps || 0.1;
-//     const rr = compute({ ...input, current: I });
-//     tbl.innerHTML += `<tr><td>${I.toFixed(2)}</td><td>${rr.width_mm.toFixed(3)}</td></tr>`;
-//   }
-// }
